@@ -1,11 +1,39 @@
 version: '3.8'
 services:
-  apiserver:
+  weather-api:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
     environment:
       - NODE_ENV=production
       - PORT=3000
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=weather
+      - DB_USER=weather
+      - DB_PASSWORD=weather
+
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: weather
+      POSTGRES_PASSWORD: weather
+      POSTGRES_DB: weather
+    # Delete ports on production deployment
+    ports: 
+      - "5432:5432"  
+    volumes:
+      - db_data:/var/lib/postgresql/data/
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${DB_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  db_data:

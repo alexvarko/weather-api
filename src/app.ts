@@ -14,6 +14,10 @@ const swaggerDocument = YAML.load(path.join(__dirname, './swagger.yaml'));
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
+app.get('/', (req, res) => {
+    res.send('Weather API is running. Visit /api-docs for documentation');
+  });
+
 app.use(errorHandler);
 
 export default app;
