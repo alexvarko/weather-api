@@ -20,4 +20,8 @@ export default {
       tableName: 'knex_migrations',
     },
   },
+  weatherApi: {
+    baseUrl: process.env.WEATHER_API_BASE_URL || 'http://api.weatherapi.com/v1/',
+    apiKey: process.env.WEATHER_API_KEY || '',
+  },
 };

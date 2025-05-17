@@ -20,7 +20,7 @@
     "build": "tsc -p tsconfig.json && npm run copy-swagger && tsc-alias",
     "copy-swagger": "copyfiles -u 1 src/swagger.yaml dist",
     "start": "node -r tsconfig-paths/register dist/server.js",
-    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/server.ts",
+    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node -r tsconfig-paths/register' src/server.ts",
     "lint": "eslint 'src/**/*.ts'",
     "migrate": "knex migrate:latest",
     "migrate:rollback": "knex migrate:rollback"
@@ -32,6 +32,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "helmet": "^8.1.0",
     "knex": "^3.1.0",
     "p-retry": "^6.2.1",
     "pg": "^8.16.0",

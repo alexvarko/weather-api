@@ -17,6 +17,8 @@ services:
       - DB_NAME=weather
       - DB_USER=weather
       - DB_PASSWORD=weather
+      - WEATHER_API_BASE_URL=https://api.weatherapi.com/v1/
+      - WEATHER_API_KEY=your_api_key_here
 
   db:
     image: postgres:17-alpine
