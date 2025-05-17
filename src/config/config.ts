@@ -22,7 +22,19 @@ export default {
     },
   },
   weatherApi: {
-    baseUrl: process.env.WEATHER_API_BASE_URL || 'http://api.weatherapi.com/v1/',
+    baseUrl:
+      process.env.WEATHER_API_BASE_URL || 'http://api.weatherapi.com/v1/',
     apiKey: process.env.WEATHER_API_KEY || '',
+  },
+  email: {
+    from: process.env.SMTP_EMAIL_FROM || 'weather@example.com',
+    smtp: {
+      host: process.env.SMTP_HOST || 'smtp.example.com',
+      port: Number(process.env.SMTP_PORT) || 587,
+      auth: {
+        user: process.env.SMTP_USER || '',
+        pass: process.env.SMTP_PASSWORD || '',
+      },
+    },
   },
 };

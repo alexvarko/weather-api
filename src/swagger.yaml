@@ -56,7 +56,7 @@ paths:
       description: "Subscribe an email to receive weather updates for a specific city with chosen frequency."
       operationId: "subscribe"
       consumes:
-        - "application/json"
+        # - "application/json"
         - "application/x-www-form-urlencoded"
       produces:
         - "application/json"
