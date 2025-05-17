@@ -32,7 +32,7 @@ export class EmailService {
       subject: 'Confirm Your Weather Subscription',
       html: `
         <h1>Confirm Your Weather Subscription</h1>
-        <p>Please click the link below to confirm your ${frequency} subscription on weather updates for ${city}:</p>
+        <p>Please click the link below to confirm your <b>${frequency}</b> subscription on weather updates for <b>${city}</b>:</p>
         <a href="${confirmUrl}" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">Confirm Subscription</a>
         <p>If you didn't request this subscription, you can ignore this email.</p>
       `,
@@ -43,6 +43,7 @@ export class EmailService {
     email: string,
     city: string,
     weather: Weather,
+    frequency: string,
     unsubscribeToken: string,
   ): Promise<void> {
     const unsubscribeUrl = `${config.hostUrl}/api/unsubscribe/${unsubscribeToken}`;
@@ -52,7 +53,7 @@ export class EmailService {
       to: email,
       subject: `Weather Update for ${city}`,
       html: `
-        <h1>Weather Update for ${city}</h1>
+        <h1>${frequency} Weather Update for ${city}</h1>
         <div style="padding: 20px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 20px;">
           <p><strong>Temperature:</strong> ${weather.temperature}°C</p>
           <p><strong>Humidity:</strong> ${weather.humidity}%</p>

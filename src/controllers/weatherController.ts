@@ -1,38 +1,17 @@
 import { Request, Response } from 'express';
-import axios from 'axios';
-import { Weather } from '#models/weatherModel';
-import config from '#config/config';
+import { weatherService } from '#services/weatherService';
 
 export const getWeather = async (req: Request, res: Response) => {
   const city = req.query.city;
 
   try {
-    const response = await axios.get(
-      `${config.weatherApi.baseUrl}current.json`,
-      {
-        params: {
-          key: config.weatherApi.apiKey,
-          q: city,
-        },
-        validateStatus: () => true,
-      },
-    );
-    const weatherData = response.data;
+    const result = await weatherService.getWeatherByCity(city as string);
 
-    if (response.status == 400 && weatherData.error.code == 1006) {
-      return res.status(404).json('City not found');
-    }
-    if (response.status != 200) {
-      return res.status(400).json('Invalid request');
+    if (!result.success) {
+      return res.status(result.statusCode).json(result.error);
     }
 
-    const weather: Weather = {
-      temperature: weatherData.current.temp_c,
-      humidity: weatherData.current.humidity,
-      description: weatherData.current.condition.text,
-    };
-
-    res.status(200).json(weather);
+    res.status(200).json(result.data);
   } catch (error) {
     console.error('Error fetching weather:', error);
     res.status(400).json('Invalid request');

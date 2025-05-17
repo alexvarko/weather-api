@@ -2,9 +2,8 @@ import { Request, Response } from 'express';
 import SubscriptionModel, {
   SubscriptionFrequency,
 } from '#models/subscriptionModel';
-import axios from 'axios';
-import config from '#config/config';
 import emailService from '#services/emailService';
+import { weatherService } from '#services/weatherService';
 
 export const subscribe = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -29,22 +28,15 @@ export const subscribe = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    try {
-      const response = await axios.get(`${config.hostUrl}/api/weather`, {
-        params: { city },
-        validateStatus: () => true,
-      });
+    const weatherResult = await weatherService.getWeatherByCity(city);
 
-      if (response.status === 404) {
-        res.status(404).json('Invalid input: city not found');
-        return;
-      } else if (response.status !== 200) {
-        res.status(500).json({ error: 'Internal Server Error' });
-        return;
-      }
-    } catch (error) {
-      console.error('Error validating city:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
+    if (!weatherResult.success && weatherResult.statusCode === 404) {
+      res.status(404).json('Invalid input: city not found');
+      return;
+    }
+
+    if (!weatherResult.success) {
+      res.status(weatherResult.statusCode).json('Internal Server Error');
       return;
     }
 
@@ -83,7 +75,7 @@ export const subscribe = async (req: Request, res: Response): Promise<void> => {
 
     res
       .status(200)
-      .json({ message: 'Subscription successful. Confirmation email sent.' });
+      .json('Subscription successful. Confirmation email sent.');
   } catch (error) {
     console.error('Error creating subscription:', error);
     res.status(500).json({ error: 'Internal Server Error' });

@@ -7,6 +7,7 @@ import cors from 'cors';
 import { errorHandler } from './middleware/error-handler.middleware';
 import weatherRoutes from '#routes/weatherRoutes';
 import subscriptionRoutes from '#routes/subscriptionRoutes';
+import { scheduleTasks } from '#services/scheduler';
 
 const app = express();
 
@@ -28,5 +29,7 @@ app.use('/api', weatherRoutes);
 app.use('/api', subscriptionRoutes);
 
 app.use(errorHandler);
+
+scheduleTasks();
 
 export default app;
