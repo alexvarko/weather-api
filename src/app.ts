@@ -6,12 +6,15 @@ import helmet from 'helmet';
 import cors from 'cors';
 import { errorHandler } from './middleware/error-handler.middleware';
 import weatherRoutes from '#routes/weatherRoutes';
+import subscriptionRoutes from '#routes/subscriptionRoutes';
 
 const app = express();
 
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 
 const swaggerDocument = YAML.load(path.join(__dirname, './swagger.yaml'));
 
@@ -22,6 +25,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api', weatherRoutes);
+app.use('/api', subscriptionRoutes);
 
 app.use(errorHandler);
 

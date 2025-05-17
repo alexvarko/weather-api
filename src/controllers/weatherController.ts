@@ -1,17 +1,17 @@
 import { Request, Response } from 'express';
 import axios from 'axios';
 import { Weather } from '#models/weatherModel';
-import weatherApi from '#config/config';
+import config from '#config/config';
 
 export const getWeather = async (req: Request, res: Response) => {
   const city = req.query.city;
 
   try {
     const response = await axios.get(
-      `${weatherApi.weatherApi.baseUrl}current.json`,
+      `${config.weatherApi.baseUrl}current.json`,
       {
         params: {
-          key: weatherApi.weatherApi.apiKey,
+          key: config.weatherApi.apiKey,
           q: city,
         },
         validateStatus: () => true,

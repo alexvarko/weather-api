@@ -6,6 +6,7 @@ dotenv.config();
 export default {
   port: Number(process.env.PORT) || 3000,
   nodeEnv: process.env.NODE_ENV || 'development',
+  hostUrl: process.env.HOST_URL || 'http://localhost:3000',
   database: {
     client: 'pg',
     connection: {
