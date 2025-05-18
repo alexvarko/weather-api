@@ -89,7 +89,7 @@ export const confirmSubscription = async (
   try {
     const { token } = req.params;
 
-    if (!token) {
+    if (!token || typeof token !== 'string' || token.length !== 64) {
       res.status(400).json('Invalid token');
       return;
     }
@@ -116,8 +116,8 @@ export const unsubscribe = async (
   try {
     const { token } = req.params;
 
-    if (!token) {
-      res.status(400).json('Token is required');
+    if (!token || typeof token !== 'string' || token.length !== 64) {
+      res.status(400).json('Invalid token');
       return;
     }
 
