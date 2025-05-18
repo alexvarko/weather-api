@@ -1,5 +1,14 @@
 version: '3.8'
 services:
+  weather-api-webclient:
+    image: ghcr.io/alexvarko/weather-api-webclient:v0.0.1
+    ports:
+      - "8000:3000"
+    depends_on:
+      - weather-api
+    environment:
+      - BACKEND_URL=http://weather-api:3000/api
+
   weather-api:
     build:
       context: .
