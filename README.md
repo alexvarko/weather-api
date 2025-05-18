@@ -2,6 +2,11 @@
 
 A TypeScript-based Weather API application that allows users to subscribe to weather updates for their chosen city. Users can receive updates via email at their preferred frequency (hourly or daily).
 
+Weather Api has been deployed on Render and is available at: https://weather-api-xqe7.onrender.com
+
+You can also subscribe to weather updates on a website that uses this API: https://weather-api-webclient-v0-0-1.onrender.com
+
+
 ## Table of Contents
 
 - [Features](#features)
@@ -28,6 +33,7 @@ A TypeScript-based Weather API application that allows users to subscribe to wea
 - API documentation with Swagger
 - Containerized with Docker
 - Database migrations with Knex.js
+- Deployed API and webclient on Render with full functionality
 
 
 ## Tech Stack
