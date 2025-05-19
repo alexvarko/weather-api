@@ -6,6 +6,7 @@ Weather Api has been deployed on Render and is available at: https://weather-api
 
 You can also subscribe to weather updates on a website that uses this API: https://weather-api-webclient-v0-0-1.onrender.com
 
+For testing purposes, if you subscribe to **Hourly** updates for Lviv, you will receive weather updates every minute.
 
 ## Table of Contents
 
