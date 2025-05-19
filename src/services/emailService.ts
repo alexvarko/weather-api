@@ -53,13 +53,19 @@ export class EmailService {
       to: email,
       subject: `Weather Update for ${city}`,
       html: `
-        <h1>${frequency} Weather Update for ${city}</h1>
-        <div style="padding: 20px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 20px;">
-          <p><strong>Temperature:</strong> ${weather.temperature}°C</p>
-          <p><strong>Humidity:</strong> ${weather.humidity}%</p>
-          <p><strong>Description:</strong> ${weather.description}</p>
+    <div style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 40px;">
+      <div style="max-width: 600px; margin: auto; background: #ffffff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+        <h1 style="color: #333333; margin-top: 0;">${frequency} Weather Update for ${city}</h1>
+        <div style="margin-top: 20px; padding: 20px; background-color: #f1f8ff; border-left: 5px solid #2196F3; border-radius: 4px;">
+          <p style="margin: 10px 0; font-size: 16px;"><strong>🌡️ Temperature:</strong> ${weather.temperature}°C</p>
+          <p style="margin: 10px 0; font-size: 16px;"><strong>💧 Humidity:</strong> ${weather.humidity}%</p>
+          <p style="margin: 10px 0; font-size: 16px;"><strong>🌥️ Description:</strong> ${weather.description}</p>
         </div>
-        <p>To unsubscribe from these updates, <a href="${unsubscribeUrl}">click here</a>.</p>
+        <p style="margin-top: 30px; font-size: 14px; color: #666666;">
+          If you no longer wish to receive these updates, you can <a href="${unsubscribeUrl}" style="color: #2196F3;">unsubscribe here</a>.
+        </p>
+      </div>
+    </div>
       `,
     });
   }

@@ -11,19 +11,30 @@ export const scheduleTasks = (): void => {
     await sendWeatherUpdates('hourly');
   });
 
-  // Schedule daily updates (at 10 AM)
-  cron.schedule('0 10 * * *', async () => {
+  // Schedule daily updates (at 10 AM UTC+3)
+  cron.schedule('0 7 * * *', async () => {
     console.log('Running daily weather updates');
     await sendWeatherUpdates('daily');
+  });
+
+  // Minute-based updates for testing (only for Lviv Hourly subscriptions)
+  cron.schedule('* * * * *', async () => {
+    console.log('Running minute-based weather updates for Lviv');
+    await sendWeatherUpdates('minute');
   });
 };
 
 async function sendWeatherUpdates(
-  frequency: 'hourly' | 'daily',
+  frequency: 'hourly' | 'daily' | 'minute',
 ): Promise<void> {
   try {
-    const subscriptions =
-      await Subscription.getConfirmedSubscriptions(frequency);
+    let subscriptions = await Subscription.getConfirmedSubscriptions(
+      frequency === 'minute' ? 'hourly' : frequency,
+    );
+
+    if (frequency === 'minute') {
+      subscriptions = subscriptions.filter(sub => sub.city.toLowerCase() === 'lviv');
+    }
 
     for (const subscription of subscriptions) {
       try {
